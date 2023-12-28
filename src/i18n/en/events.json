@@ -1,0 +1,19 @@
+{
+  "authenticated": "You are not authenticated or Token is not valid",
+  "SignUpRequired": "name, email and password are required",
+  "SignInRequired": "email and password are required",
+  "emailExist": "Email not exist",
+  "passwordIncorrect": "The password is incorrect",
+  "emailRequired": "email is required",
+  "noUser": "There is no user with that email {email}",
+  "resetCodeRequired": "resetCode is required",
+  "resetInvalid": "Reset code invalid",
+  "resetExpired": "Reset token has expired",
+  "resetVerified": "Reset code not verified",
+  "idRequired": "id is required",
+  "noIdUser": "User {id} is not exist",
+  "UserNotExist": "User is not exist",
+  "deleteUserSuccessfully": "The user has been deleted successfully",
+  "newPasswordAndCurrentPasswordRequired": "newPassword, currentPassword are required",
+  "currentPasswordIncorrect": "The current password is incorrect"
+}

@@ -6,19 +6,25 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { UserService } from '../user/user.service';
+import { I18nContext, I18nService } from 'nestjs-i18n';
 
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {
-  constructor(private userService: UserService) {
+  constructor(
+    private userService: UserService,
+    private i18nService: I18nService,
+  ) {
     super();
   }
 
   // @ts-ignore
-  async handleRequest(err: any, user: any, info: any) {
+  async handleRequest(err: any, user: any) {
     // You can throw an exception based on either "info" or "err" arguments
     if (err || !user) {
       throw new UnauthorizedException(
-        'You are not authenticated or Token is valid',
+        this.i18nService.t('events.authenticated', {
+          lang: I18nContext.current().lang,
+        }),
       );
     }
 
