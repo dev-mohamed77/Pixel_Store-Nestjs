@@ -20,15 +20,15 @@ import * as path from 'path';
     }),
     I18nModule.forRoot({
       fallbackLanguage: 'en',
+      resolvers: [
+        AcceptLanguageResolver,
+        { use: QueryResolver, options: ['lang'] },
+        new HeaderResolver(['x-lang']),
+      ],
       loaderOptions: {
         path: path.join(__dirname, '/i18n/'),
         watch: true,
         logging: true,
-        resolvers: [
-          { use: QueryResolver, options: ['lang'] },
-          AcceptLanguageResolver,
-          new HeaderResolver(['x-lang']),
-        ],
       },
     }),
     DatabaseModule,

@@ -11,6 +11,7 @@ import * as crypto from 'crypto';
 import { UpdateUserAuthUseCase } from 'src/domain/usecases/auth/update_user_auth.usecase';
 import { SignUpAuthDto } from './dto/signup_auth_dto';
 import { SignInAuthDto } from './dto/signin_auth_dto';
+import { I18nContext, I18nService } from 'nestjs-i18n';
 
 @Injectable()
 export class AuthService {
@@ -19,11 +20,16 @@ export class AuthService {
     private getUserOneUseCase: GetUserOneAuthUseCase,
     private updateUserUseCase: UpdateUserAuthUseCase,
     private jwtService: JwtService,
+    private readonly i18n: I18nService,
   ) {}
 
   async signUpService(signUAuthDto: SignUpAuthDto) {
     if (!signUAuthDto.name || !signUAuthDto.email || !signUAuthDto.password) {
-      throw new BadRequestException('name and email , password are required');
+      throw new BadRequestException(
+        this.i18n.t('events.SignUpRequired', {
+          lang: I18nContext.current().lang,
+        }),
+      );
     }
 
     const pass = await passwordHash(signUAuthDto.password);
@@ -41,7 +47,11 @@ export class AuthService {
     signInAuthDto: SignInAuthDto,
   ): Promise<[UserEntity, string]> {
     if (!signInAuthDto.email || !signInAuthDto.password) {
-      throw new BadRequestException('email and password are required');
+      throw new BadRequestException(
+        this.i18n.t('events.SignInRequired', {
+          lang: I18nContext.current().lang,
+        }),
+      );
     }
 
     const user = await this.getUserOneUseCase.execute({
@@ -49,13 +59,21 @@ export class AuthService {
     });
 
     if (!user) {
-      throw new BadRequestException('Email not exist');
+      throw new BadRequestException(
+        this.i18n.t('events.emailExist', {
+          lang: I18nContext.current().lang,
+        }),
+      );
     }
 
     const pass = await passwordCompare(signInAuthDto.password, user.password);
 
     if (!pass) {
-      throw new BadRequestException('password not found');
+      throw new BadRequestException(
+        this.i18n.t('events.passwordIncorrect', {
+          lang: I18nContext.current().lang,
+        }),
+      );
     }
 
     const payload = { id: user.id, email: user.email, role: user.role };
@@ -100,14 +118,23 @@ export class AuthService {
 
   async forgetPasswordService(email: string) {
     if (!email) {
-      throw new BadRequestException('email is required');
+      throw new BadRequestException(
+        this.i18n.t('events.emailRequired', {
+          lang: I18nContext.current().lang,
+        }),
+      );
     }
 
     const user = await this.getUserOneUseCase.execute({ email });
 
     if (!user) {
       throw new BadRequestException(
-        `There is no user with that email ${email}`,
+        this.i18n.t('events.noUser', {
+          args: {
+            email: email,
+          },
+          lang: I18nContext.current().lang,
+        }),
       );
     }
 
@@ -129,7 +156,11 @@ export class AuthService {
 
   async verifyPassResetCodeService(resetCode: string) {
     if (!resetCode) {
-      throw new BadRequestException('resetCode required');
+      throw new BadRequestException(
+        this.i18n.t('events.resetCodeRequired', {
+          lang: I18nContext.current().lang,
+        }),
+      );
     }
 
     const hashedResetCode = crypto
@@ -142,13 +173,21 @@ export class AuthService {
     });
 
     if (!user) {
-      throw new BadRequestException('Reset code invalid');
+      throw new BadRequestException(
+        this.i18n.t('events.resetInvalid', {
+          lang: I18nContext.current().lang,
+        }),
+      );
     }
 
     const now = new Date(Date.now());
 
     if (user.passwordResetExpires < now) {
-      throw new BadRequestException('Reset token has expired');
+      throw new BadRequestException(
+        this.i18n.t('events.resetExpired', {
+          lang: I18nContext.current().lang,
+        }),
+      );
     }
 
     user.passwordResetVerified = true;
@@ -164,7 +203,11 @@ export class AuthService {
     resetPasswordDto: SignInAuthDto,
   ): Promise<[UserEntity, string]> {
     if (!resetPasswordDto.email || !resetPasswordDto.password) {
-      throw new BadRequestException('email and password are required');
+      throw new BadRequestException(
+        this.i18n.t('events.SignInRequired', {
+          lang: I18nContext.current().lang,
+        }),
+      );
     }
 
     const user = await this.getUserOneUseCase.execute({
@@ -173,12 +216,21 @@ export class AuthService {
 
     if (!user) {
       throw new BadRequestException(
-        `There is no user with email ${resetPasswordDto.email}`,
+        this.i18n.t('events.noUser', {
+          args: {
+            email: resetPasswordDto.email,
+          },
+          lang: I18nContext.current().lang,
+        }),
       );
     }
 
     if (!user.passwordResetVerified) {
-      throw new BadRequestException(`Reset code not verified`);
+      throw new BadRequestException(
+        this.i18n.t('events.resetVerified', {
+          lang: I18nContext.current().lang,
+        }),
+      );
     }
 
     const passHash = await passwordHash(resetPasswordDto.password);

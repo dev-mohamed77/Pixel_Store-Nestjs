@@ -1,1 +1,19 @@
-{}
+{
+  "authenticated": "لم تتم مصادقتك أو أن الرمز المميز غير صالح",
+  "SignUpRequired": "الاسم والبريد الإلكتروني وكلمة المرور مطلوبة",
+  "SignInRequired": "الاسم وكلمة المرور مطلوبة",
+  "emailExist": "البريد الإلكتروني غير موجود",
+  "passwordIncorrect": "كلمة المرور غير صحيحة",
+  "emailRequired": "البريد الالكتروني مطلوب",
+  "noUser": "لا يوجد مستخدم لديه هذا البريد الإلكتروني {email}",
+  "resetCodeRequired": "رمز إعادة الضبط مطلوب",
+  "resetInvalid": "رمز إعادة الضبط غير صالح",
+  "resetExpired": "انتهت صلاحية رمز إعادة التعيين",
+  "resetVerified": "لم يتم التحقق من رمز إعادة الضبط",
+  "idRequired": "المعرف مطلوب",
+  "noIdUser": "المستخدم {id} غير موجود",
+  "UserNotExist": "المستخدم غير موجود",
+  "deleteUserSuccessfully": "تم حذف المستخدم بنجاح",
+  "newPasswordAndCurrentPasswordRequired": "كلمة المرور الجديدة، كلمة المرور الحالية مطلوبة",
+  "currentPasswordIncorrect": "كلمة المرور الحالية غير صحيحة"
+}
