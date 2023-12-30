@@ -15,5 +15,9 @@
   "UserNotExist": "المستخدم غير موجود",
   "deleteUserSuccessfully": "تم حذف المستخدم بنجاح",
   "newPasswordAndCurrentPasswordRequired": "كلمة المرور الجديدة، كلمة المرور الحالية مطلوبة",
-  "currentPasswordIncorrect": "كلمة المرور الحالية غير صحيحة"
+  "currentPasswordIncorrect": "كلمة المرور الحالية غير صحيحة",
+  "noIdCategory": "الفئة {id} غير موجودة",
+  "CategoryNotExist": "الفئة غير موجودة",
+  "deleteCategorySuccessfully": "تم حذف الفئة بنجاح",
+  "invalidSlug": "تنسيق غير صالح"
 }
