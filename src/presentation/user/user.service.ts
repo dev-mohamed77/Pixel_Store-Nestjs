@@ -8,7 +8,7 @@ import { GetUsersUseCase } from 'src/domain/usecases/user/get_users_usecase';
 import { UpdateUserUseCase } from 'src/domain/usecases/user/update_user_usecase';
 import { DeleteOneUserUseCase } from 'src/domain/usecases/user/delete_one_user_usecase';
 import { DeleteUserUseCase } from 'src/domain/usecases/user/delete_user_usecase';
-import { UserEntity } from 'src/domain/entities/users';
+import { UserEntity } from 'src/domain/entities/users.entity';
 import { GetOneUserUseCase } from 'src/domain/usecases/user/get_one_user_usecase';
 import { ChangePasswordLoggedUserDto } from './dto/change-password-logged-user.dto';
 import {
@@ -77,6 +77,7 @@ export class UserService {
     if (!result) {
       throw new BadRequestException(
         this.i18nService.t('events.noIdUser', {
+          args: { id },
           lang: I18nContext.current().lang,
         }),
       );
@@ -116,6 +117,7 @@ export class UserService {
     if (!result) {
       throw new BadRequestException(
         this.i18nService.t('events.noIdUser', {
+          args: { id },
           lang: I18nContext.current().lang,
         }),
       );
@@ -138,6 +140,7 @@ export class UserService {
     if (!result) {
       throw new BadRequestException(
         this.i18nService.t('events.noIdUser', {
+          args: { id },
           lang: I18nContext.current().lang,
         }),
       );

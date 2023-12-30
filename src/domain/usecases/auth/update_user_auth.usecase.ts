@@ -1,5 +1,5 @@
 import { IBaseUseCase } from 'src/application/core/base/base_usecase';
-import { UserEntity } from 'src/domain/entities/users';
+import { UserEntity } from 'src/domain/entities/users.entity';
 import { IAuthRepository } from 'src/domain/repositories/auth.repository';
 
 export class UpdateUserAuthUseCase implements IBaseUseCase<UserEntity> {

@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { UserEntity } from 'src/domain/entities/users';
+import { UserEntity } from 'src/domain/entities/users.entity';
 import { CreateUserAuthUseCase } from 'src/domain/usecases/auth/create_user_auth.usecase';
 import { GetUserOneAuthUseCase } from 'src/domain/usecases/auth/get_user_one_auth.usecase';
 import {

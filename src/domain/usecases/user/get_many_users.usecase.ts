@@ -1,4 +1,4 @@
-import { UserEntity } from 'src/domain/entities/users';
+import { UserEntity } from 'src/domain/entities/users.entity';
 import { IBaseUseCase } from '../../../application/core/base/base_usecase';
 import { FindAllOptionModel } from 'src/application/core/model/option.model';
 import { IUserRepository } from 'src/domain/repositories/user.repository';

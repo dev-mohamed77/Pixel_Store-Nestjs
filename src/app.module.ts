@@ -12,6 +12,7 @@ import {
   QueryResolver,
 } from 'nestjs-i18n';
 import * as path from 'path';
+import { CategoriesModule } from './presentation/categories/categories.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import * as path from 'path';
     DatabaseModule,
     AuthModule,
     UserModule,
+    CategoriesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

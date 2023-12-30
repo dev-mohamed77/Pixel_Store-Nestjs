@@ -9,7 +9,7 @@ export class UserEntity extends BaseEntity {
   @Exclude()
   password?: string;
 
-  phone: string;
+  phone?: string;
   role?: RolesApp; // enum (user, admin, manager)
   country?: string;
   email_verified?: boolean;

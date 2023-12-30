@@ -15,5 +15,9 @@
   "UserNotExist": "User is not exist",
   "deleteUserSuccessfully": "The user has been deleted successfully",
   "newPasswordAndCurrentPasswordRequired": "newPassword, currentPassword are required",
-  "currentPasswordIncorrect": "The current password is incorrect"
+  "currentPasswordIncorrect": "The current password is incorrect",
+  "noIdCategory": "Category {id} is not exist",
+  "CategoryNotExist": "Category is not exist",
+  "deleteCategorySuccessfully": "The Category has been deleted successfully",
+  "invalidSlug": "Invalid slug format"
 }
