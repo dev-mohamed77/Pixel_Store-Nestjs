@@ -20,4 +20,7 @@ export enum EndPointApp {
 
   // categories
   categories = 'categories',
+
+  // SubCategories
+  subCategories = 'sub-categories',
 }

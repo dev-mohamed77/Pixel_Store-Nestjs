@@ -19,5 +19,8 @@
   "noIdCategory": "Category {id} is not exist",
   "CategoryNotExist": "Category is not exist",
   "deleteCategorySuccessfully": "The Category has been deleted successfully",
-  "invalidSlug": "Invalid slug format"
+  "invalidSlug": "Invalid slug format",
+  "noIdSubCategory": "SubCategory {id} is not exist",
+  "subCategoryNotExist": "SubCategory is not exist",
+  "deleteSubCategorySuccessfully": "The SubCategory has been deleted successfully"
 }
