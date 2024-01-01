@@ -11,6 +11,7 @@
   "resetExpired": "Reset token has expired",
   "resetVerified": "Reset code not verified",
   "idRequired": "id is required",
+  "imageRequired": "images is required",
   "noIdUser": "User {id} is not exist",
   "UserNotExist": "User is not exist",
   "deleteUserSuccessfully": "The user has been deleted successfully",
