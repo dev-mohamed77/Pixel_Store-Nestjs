@@ -39,11 +39,17 @@ export class SubCategoriesController {
   }
 
   @Get()
-  getSubCategoriesController(
+  async getSubCategoriesController(
     @Query('limit') limit: string,
     @Query('page') page: string,
   ) {
-    return this.subCategoriesService.getSubCategoriesService(limit, page);
+    const [result, length] =
+      await this.subCategoriesService.getSubCategoriesService(limit, page);
+
+    return {
+      length,
+      data: result,
+    };
   }
 
   @Get(EndPointApp.id)
