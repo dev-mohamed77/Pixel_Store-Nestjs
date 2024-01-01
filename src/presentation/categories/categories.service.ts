@@ -12,6 +12,7 @@ import { GetCategoryByIDUseCase } from 'src/domain/usecases/categories/get_categ
 import { CreateCategoryUseCase } from 'src/domain/usecases/categories/create_category_usecase';
 import { CategoryEntity } from 'src/domain/entities/category.entity';
 import slugify from 'slugify';
+import { CloudinaryService } from 'src/application/common/cloudinary/cloudinary.service';
 
 @Injectable()
 export class CategoriesService {
@@ -25,12 +26,31 @@ export class CategoriesService {
     private deleteCategoryUseCase: DeleteCategoryUseCase,
     private deleteOneCategoryUseCase: DeleteOneCategoryUseCase,
     private i18nService: I18nService,
+    private cloudianryService: CloudinaryService,
   ) {}
-  createCategoryService(createCategoryDto: CreateCategoryDto, userId: string) {
+
+  async createCategoryService(
+    createCategoryDto: CreateCategoryDto,
+    image: Express.Multer.File,
+    userId: string,
+  ) {
+    if (!image) {
+      throw new BadRequestException(
+        this.i18nService.t('events.imageRequired', {
+          lang: I18nContext.current().lang,
+        }),
+      );
+    }
+
+    const imageUrl = await this.cloudianryService.uploadImage(
+      image,
+      'category',
+    );
+
     const category = new CategoryEntity({
       titleAr: createCategoryDto.titleAr,
       titleEn: createCategoryDto.titleEn,
-      imageUrl: createCategoryDto.imageUrl,
+      imageUrl: imageUrl.url,
       categorySlug: slugify(createCategoryDto.titleEn),
       user: {
         id: userId,
@@ -155,10 +175,44 @@ export class CategoriesService {
     const category = new CategoryEntity({
       titleAr: updateCategoryDto.titleAr,
       titleEn: updateCategoryDto.titleEn,
-      imageUrl: updateCategoryDto.imageUrl,
       categorySlug: updateCategoryDto.titleEn
         ? slugify(updateCategoryDto.titleEn)
         : undefined,
+      updatedAt: new Date(Date.now()),
+    });
+
+    return this.updateCategoryUseCase.execute({
+      id: id,
+      params: category,
+      relation: {
+        user: true,
+      },
+      select: {
+        user: {
+          name: true,
+          email: true,
+          role: true,
+        },
+      },
+    });
+  }
+
+  async updateImageCategory(id: string, image: Express.Multer.File) {
+    if (!image) {
+      throw new BadRequestException(
+        this.i18nService.t('events.imageRequired', {
+          lang: I18nContext.current().lang,
+        }),
+      );
+    }
+
+    const imageUrl = await this.cloudianryService.uploadImage(
+      image,
+      'category',
+    );
+
+    const category = new CategoryEntity({
+      imageUrl: imageUrl.url,
       updatedAt: new Date(Date.now()),
     });
 

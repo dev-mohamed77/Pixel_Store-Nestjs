@@ -13,12 +13,14 @@ import { GetOneCategoryUseCase } from 'src/domain/usecases/categories/get_one_ca
 import { UpdateCategoryUseCase } from 'src/domain/usecases/categories/update_category_usecase';
 import { DeleteCategoryUseCase } from 'src/domain/usecases/categories/delete_category_usecase';
 import { DeleteOneCategoryUseCase } from 'src/domain/usecases/categories/delete_one_category_usecase';
+import { CloudinaryService } from 'src/application/common/cloudinary/cloudinary.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Category])],
   controllers: [CategoriesController],
   providers: [
     CategoriesService,
+    CloudinaryService,
     {
       provide: CategoriesRepositoryImp,
       useClass: CategoriesRepositoryImp,

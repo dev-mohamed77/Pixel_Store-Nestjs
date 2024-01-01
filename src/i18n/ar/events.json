@@ -11,6 +11,7 @@
   "resetExpired": "انتهت صلاحية رمز إعادة التعيين",
   "resetVerified": "لم يتم التحقق من رمز إعادة الضبط",
   "idRequired": "المعرف مطلوب",
+  "imageRequired": "الصوره مطلوبه",
   "noIdUser": "المستخدم {id} غير موجود",
   "UserNotExist": "المستخدم غير موجود",
   "deleteUserSuccessfully": "تم حذف المستخدم بنجاح",
