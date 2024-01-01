@@ -1,10 +1,11 @@
-import { Column, ManyToOne } from 'typeorm';
+import { Column, Entity, ManyToOne } from 'typeorm';
 import { BaseModel } from './base_model';
 import { User } from './user.model';
 import { UserEntity } from 'src/domain/entities/users.entity';
 import { Category } from './category.model';
 import { CategoryEntity } from 'src/domain/entities/category.entity';
 
+@Entity()
 export class SubCategory extends BaseModel {
   @Column({ type: 'varchar' })
   titleAr: string;

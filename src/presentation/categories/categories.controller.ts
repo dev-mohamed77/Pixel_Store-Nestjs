@@ -39,11 +39,19 @@ export class CategoriesController {
   }
 
   @Get()
-  getCategoriesController(
+  async getCategoriesController(
     @Query('limit') limit: string,
     @Query('page') page: string,
   ) {
-    return this.categoriesService.getCategoriesService(limit, page);
+    const [result, length] = await this.categoriesService.getCategoriesService(
+      limit,
+      page,
+    );
+
+    return {
+      length,
+      data: result,
+    };
   }
 
   @Get(EndPointApp.id)

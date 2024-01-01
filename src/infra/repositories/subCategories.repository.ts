@@ -5,7 +5,7 @@ import { ISubCategoriesRepository } from 'src/domain/repositories/subCategories.
 import { SubCategory } from '../model/subCategory.model';
 import { Repository } from 'typeorm';
 
-export class SubCategoriesRepository
+export class SubCategoriesRepositoryImp
   extends BaseTypeOrmRepositoryImp<SubCategoryEntity>
   implements ISubCategoriesRepository
 {

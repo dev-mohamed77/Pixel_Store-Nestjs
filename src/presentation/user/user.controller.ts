@@ -39,8 +39,13 @@ export class UserController {
   @Get()
   @Roles(RolesApp.admin)
   @UseGuards(JwtAuthGuard, RoleGuard)
-  findAll(@Query('limit') limit: string, @Query('page') page: string) {
-    return this.userService.getUserService(limit, page);
+  async findAll(@Query('limit') limit: string, @Query('page') page: string) {
+    const [result, length] = await this.userService.getUserService(limit, page);
+
+    return {
+      length,
+      data: result,
+    };
   }
 
   @Get(EndPointApp.id)

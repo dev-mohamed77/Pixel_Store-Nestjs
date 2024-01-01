@@ -13,6 +13,7 @@ import {
 } from 'nestjs-i18n';
 import * as path from 'path';
 import { CategoriesModule } from './presentation/categories/categories.module';
+import { SubCategoriesModule } from './presentation/sub-categories/sub-categories.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { CategoriesModule } from './presentation/categories/categories.module';
     AuthModule,
     UserModule,
     CategoriesModule,
+    SubCategoriesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
