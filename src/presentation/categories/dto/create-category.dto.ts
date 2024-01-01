@@ -8,8 +8,4 @@ export class CreateCategoryDto {
   @IsNotEmpty()
   @IsString()
   titleEn: string;
-
-  @IsNotEmpty()
-  @IsString()
-  imageUrl: string;
 }

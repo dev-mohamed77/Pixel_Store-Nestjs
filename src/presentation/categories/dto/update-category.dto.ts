@@ -8,8 +8,4 @@ export class UpdateCategoryDto {
   @IsOptional()
   @IsString()
   titleEn: string;
-
-  @IsOptional()
-  @IsString()
-  imageUrl: string;
 }

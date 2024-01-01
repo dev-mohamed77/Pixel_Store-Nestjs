@@ -7,8 +7,9 @@ export class CloudinaryService {
   uploadImage(
     file: Express.Multer.File,
     fileName: string,
+    isImage = true,
   ): Promise<CloudinaryResponse> {
-    return this.uploadFile(file, fileName);
+    return this.uploadFile(file, fileName, isImage);
   }
 
   uploadVideo(file: Express.Multer.File, fileName: string) {

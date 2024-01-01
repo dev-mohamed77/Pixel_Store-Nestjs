@@ -10,6 +10,8 @@ import {
   Req,
   ParseUUIDPipe,
   Put,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
@@ -20,6 +22,7 @@ import { JwtAuthGuard } from '../auth/jwt.guard';
 import { RoleGuard } from '../auth/role.guard';
 import { EndPointApp } from 'src/application/config/enum/endpoint_enum';
 import { ParseSlugValidationPipe } from 'src/application/core/validation/slug_validation_pipe';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller(EndPointApp.categories)
 export class CategoriesController {
@@ -28,12 +31,15 @@ export class CategoriesController {
   @Post()
   @Roles(RolesApp.admin)
   @UseGuards(JwtAuthGuard, RoleGuard)
+  @UseInterceptors(FileInterceptor('image'))
   createCategoryController(
     @Req() req,
+    @UploadedFile() image: Express.Multer.File,
     @Body() createCategoryDto: CreateCategoryDto,
   ) {
     return this.categoriesService.createCategoryService(
       createCategoryDto,
+      image,
       req.user.id,
     );
   }
@@ -76,6 +82,17 @@ export class CategoriesController {
     @Body() updateCategoryDto: UpdateCategoryDto,
   ) {
     return this.categoriesService.updateCategoryService(id, updateCategoryDto);
+  }
+
+  @Put(EndPointApp.id)
+  @Roles(RolesApp.admin)
+  @UseGuards(JwtAuthGuard, RoleGuard)
+  @UseInterceptors(FileInterceptor('image'))
+  updateImageCategoryController(
+    @Param('id', ParseUUIDPipe) id: string,
+    @UploadedFile() image: Express.Multer.File,
+  ) {
+    return this.categoriesService.updateImageCategory(id, image);
   }
 
   @Delete(EndPointApp.id)
