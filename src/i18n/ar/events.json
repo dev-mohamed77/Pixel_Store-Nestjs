@@ -23,5 +23,8 @@
   "invalidSlug": "تنسيق غير صالح",
   "noIdSubCategory": "الفئة الفرعية {id} غير موجودة",
   "subCategoryNotExist": "الفئة الفرعية غير موجودة",
-  "deleteSubCategorySuccessfully": "تم حذف الفئة الفرعية بنجاح"
+  "deleteSubCategorySuccessfully": "تم حذف الفئة الفرعية بنجاح",
+  "noIdProduct": "المنتج {id} غير موجود",
+  "ProductNotExist": "المنتج غير موجود",
+  "deleteProductSuccessfully": "تم حذف المنتج بنجاح"
 }

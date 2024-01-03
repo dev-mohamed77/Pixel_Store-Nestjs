@@ -14,9 +14,10 @@ import { UpdateSubCategoryUseCase } from 'src/domain/usecases/subCategories/upda
 import { DeleteSubCategoryUseCase } from 'src/domain/usecases/subCategories/delete_subCategory_usecase';
 import { DeleteOneSubCategoryUseCase } from 'src/domain/usecases/subCategories/delete_one_subCategory_usecase';
 import { SubCategoriesByCategoryController } from './sub-categories-by-category.controller';
+import { UserModule } from '../user/user.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([SubCategory])],
+  imports: [TypeOrmModule.forFeature([SubCategory]), UserModule],
   controllers: [SubCategoriesController, SubCategoriesByCategoryController],
   providers: [
     SubCategoriesService,
