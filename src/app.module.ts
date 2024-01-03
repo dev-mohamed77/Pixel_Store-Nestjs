@@ -14,6 +14,7 @@ import {
 import * as path from 'path';
 import { CategoriesModule } from './presentation/categories/categories.module';
 import { SubCategoriesModule } from './presentation/sub-categories/sub-categories.module';
+import { ProductsModule } from './presentation/products/products.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { SubCategoriesModule } from './presentation/sub-categories/sub-categorie
     UserModule,
     CategoriesModule,
     SubCategoriesModule,
+    ProductsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

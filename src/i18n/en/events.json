@@ -23,5 +23,8 @@
   "invalidSlug": "Invalid slug format",
   "noIdSubCategory": "SubCategory {id} is not exist",
   "subCategoryNotExist": "SubCategory is not exist",
-  "deleteSubCategorySuccessfully": "The SubCategory has been deleted successfully"
+  "deleteSubCategorySuccessfully": "The SubCategory has been deleted successfully",
+  "noIdProduct": "Product {id} is not exist",
+  "ProductNotExist": "Product is not exist",
+  "deleteProductSuccessfully": "The product has been deleted successfully"
 }

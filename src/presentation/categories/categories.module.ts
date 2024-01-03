@@ -14,9 +14,27 @@ import { UpdateCategoryUseCase } from 'src/domain/usecases/categories/update_cat
 import { DeleteCategoryUseCase } from 'src/domain/usecases/categories/delete_category_usecase';
 import { DeleteOneCategoryUseCase } from 'src/domain/usecases/categories/delete_one_category_usecase';
 import { CloudinaryService } from 'src/application/common/cloudinary/cloudinary.service';
+<<<<<<</products
+import { MulterModule } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { CloudinaryModule } from 'src/application/common/cloudinary/cloudinary.module';
+import { UserModule } from '../user/user.module';
+=======
+>>>>>>> development
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Category])],
+  imports: [
+    TypeOrmModule.forFeature([Category]),
+    MulterModule.register({
+      storage: diskStorage({
+        filename(req, file, callback) {
+          callback(null, `${Date.now()} + ${file.originalname}`);
+        },
+      }),
+    }),
+    CloudinaryModule,
+    UserModule,
+  ],
   controllers: [CategoriesController],
   providers: [
     CategoriesService,
