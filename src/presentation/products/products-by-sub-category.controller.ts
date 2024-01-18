@@ -30,8 +30,8 @@ export class ProductsBySubCategoryController {
       page,
 
       {
-        // titleAr: Like(`%${searchTitleAr}%`),
-        // titleEn: Like(`%${searchTitleEn}%`),
+        titleAr: Like(`%${searchTitleAr}%`),
+        titleEn: Like(`%${searchTitleEn}%`),
         subCategory: {
           id: subCategoryId,
         },
