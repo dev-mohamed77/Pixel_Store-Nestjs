@@ -1,6 +1,7 @@
 export enum EndPointApp {
   // Global
   id = ':id',
+  slug = ':slug',
 
   // user
   users = 'users',
@@ -16,4 +17,10 @@ export enum EndPointApp {
   forgetPassword = 'forgetPassword',
   verifyPassResetCode = 'verifyPassResetCode',
   resetPassword = 'resetPassword',
+
+  // categories
+  categories = 'categories',
+
+  // SubCategories
+  subCategories = 'sub-categories',
 }

@@ -1,5 +1,5 @@
 import { IAuthRepository } from '../../domain/repositories/auth.repository';
-import { UserEntity } from '../../domain/entities/users';
+import { UserEntity } from '../../domain/entities/users.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../model/user.model';

@@ -1,5 +1,5 @@
 import { BaseModel } from './base_model';
-import { UserEntity } from '../../domain/entities/users';
+import { UserEntity } from '../../domain/entities/users.entity';
 import { RolesApp } from '../../application/config/enum/roles_enum';
 import { Column, Entity } from 'typeorm';
 

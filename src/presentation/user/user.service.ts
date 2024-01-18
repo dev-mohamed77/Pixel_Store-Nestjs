@@ -8,7 +8,7 @@ import { GetUsersUseCase } from 'src/domain/usecases/user/get_users_usecase';
 import { UpdateUserUseCase } from 'src/domain/usecases/user/update_user_usecase';
 import { DeleteOneUserUseCase } from 'src/domain/usecases/user/delete_one_user_usecase';
 import { DeleteUserUseCase } from 'src/domain/usecases/user/delete_user_usecase';
-import { UserEntity } from 'src/domain/entities/users';
+import { UserEntity } from 'src/domain/entities/users.entity';
 import { GetOneUserUseCase } from 'src/domain/usecases/user/get_one_user_usecase';
 import { ChangePasswordLoggedUserDto } from './dto/change-password-logged-user.dto';
 import {
@@ -17,6 +17,7 @@ import {
 } from 'src/application/core/utilities/password_hash';
 import { JwtService } from '@nestjs/jwt';
 import { UpdateLoggedUserDto } from './dto/update-logged-user-data.dto';
+import { I18nContext, I18nService } from 'nestjs-i18n';
 
 @Injectable()
 export class UserService {
@@ -30,6 +31,7 @@ export class UserService {
     private deleteUserUseCase: DeleteUserUseCase,
     private deleteOneUserUseCase: DeleteOneUserUseCase,
     private jwtService: JwtService,
+    private i18nService: I18nService,
   ) {}
 
   createUserService(createUserDto: CreateUserDto) {
@@ -63,13 +65,22 @@ export class UserService {
 
   async getUserByIdService(id: string): Promise<UserEntity> {
     if (!id) {
-      throw new BadRequestException(`id is required`);
+      throw new BadRequestException(
+        this.i18nService.t('events.idRequired', {
+          lang: I18nContext.current().lang,
+        }),
+      );
     }
 
     const result = await this.getUserByIdUseCase.execute({ id });
 
     if (!result) {
-      throw new BadRequestException(`User ${id} is not exist`);
+      throw new BadRequestException(
+        this.i18nService.t('events.noIdUser', {
+          args: { id },
+          lang: I18nContext.current().lang,
+        }),
+      );
     }
 
     return result;
@@ -79,7 +90,11 @@ export class UserService {
     const result = await this.getOneUserUseCase.execute({ params });
 
     if (!result) {
-      throw new BadRequestException(`User is not exist`);
+      throw new BadRequestException(
+        this.i18nService.t('events.UserNotExist', {
+          lang: I18nContext.current().lang,
+        }),
+      );
     }
 
     return result;
@@ -87,7 +102,11 @@ export class UserService {
 
   async updateUserService(id: string, updateUserDto: UpdateUserDto) {
     if (!id) {
-      throw new BadRequestException('Id required');
+      throw new BadRequestException(
+        this.i18nService.t('events.idRequired', {
+          lang: I18nContext.current().lang,
+        }),
+      );
     }
 
     const result = await this.updateUserUseCase.execute({
@@ -96,34 +115,64 @@ export class UserService {
     });
 
     if (!result) {
-      throw new BadRequestException(`User ${id} is not exist`);
+      throw new BadRequestException(
+        this.i18nService.t('events.noIdUser', {
+          args: { id },
+          lang: I18nContext.current().lang,
+        }),
+      );
     }
 
     return result;
   }
 
-  async deleteUserService(id: string) {
+  async deleteUserService(id: string): Promise<[boolean, string]> {
     if (!id) {
-      throw new BadRequestException('Id required');
+      throw new BadRequestException(
+        this.i18nService.t('events.idRequired', {
+          lang: I18nContext.current().lang,
+        }),
+      );
     }
 
     const result = await this.deleteUserUseCase.execute(id);
 
     if (!result) {
-      throw new BadRequestException(`User ${id} is not exist`);
+      throw new BadRequestException(
+        this.i18nService.t('events.noIdUser', {
+          args: { id },
+          lang: I18nContext.current().lang,
+        }),
+      );
     }
 
-    return result;
+    return [
+      result,
+      this.i18nService.t('events.deleteUserSuccessfully', {
+        lang: I18nContext.current().lang,
+      }),
+    ];
   }
 
-  async deleteOneUserService(params: Partial<UserEntity>) {
+  async deleteOneUserService(
+    params: Partial<UserEntity>,
+  ): Promise<[boolean, string]> {
     const result = await this.deleteOneUserUseCase.execute(params);
 
     if (!result) {
-      throw new BadRequestException(`User is not exist`);
+      throw new BadRequestException(
+        this.i18nService.t('events.UserNotExist', {
+          lang: I18nContext.current().lang,
+        }),
+      );
     }
 
-    return result;
+    return [
+      result,
+      this.i18nService.t('events.deleteUserSuccessfully', {
+        lang: I18nContext.current().lang,
+      }),
+    ];
   }
 
   //------------------------------ Logged User ---------------------------
@@ -133,7 +182,11 @@ export class UserService {
     changePasswordLoggedUserDto: ChangePasswordLoggedUserDto,
   ): Promise<[UserEntity, string]> {
     if (!id) {
-      throw new BadRequestException('id is required');
+      throw new BadRequestException(
+        this.i18nService.t('events.idRequired', {
+          lang: I18nContext.current().lang,
+        }),
+      );
     }
 
     if (
@@ -141,14 +194,20 @@ export class UserService {
       !changePasswordLoggedUserDto.newPassword
     ) {
       throw new BadRequestException(
-        'newPassword, currentPassword are required',
+        this.i18nService.t('events.newPasswordAndCurrentPasswordRequired', {
+          lang: I18nContext.current().lang,
+        }),
       );
     }
 
     const user = await this.getUserByIdService(id);
 
     if (!user) {
-      throw new BadRequestException('user is not exist');
+      throw new BadRequestException(
+        this.i18nService.t('events.UserNotExist', {
+          lang: I18nContext.current().lang,
+        }),
+      );
     }
 
     const comparePass = await passwordCompare(
@@ -157,7 +216,11 @@ export class UserService {
     );
 
     if (!comparePass) {
-      throw new BadRequestException('The current password is incorrect');
+      throw new BadRequestException(
+        this.i18nService.t('events.currentPasswordIncorrect', {
+          lang: I18nContext.current().lang,
+        }),
+      );
     }
 
     const hashPassword = await passwordHash(
@@ -191,7 +254,11 @@ export class UserService {
     data: UpdateLoggedUserDto,
   ): Promise<UserEntity> {
     if (!id) {
-      throw new BadRequestException('id is required');
+      throw new BadRequestException(
+        this.i18nService.t('events.idRequired', {
+          lang: I18nContext.current().lang,
+        }),
+      );
     }
 
     const userEntity = new UserEntity({
@@ -209,9 +276,13 @@ export class UserService {
     return updateUser;
   }
 
-  async deleteLoggedUserService(id: string): Promise<boolean> {
+  async deleteLoggedUserService(id: string): Promise<[boolean, string]> {
     if (!id) {
-      throw new BadRequestException('id is required');
+      throw new BadRequestException(
+        this.i18nService.t('events.idRequired', {
+          lang: I18nContext.current().lang,
+        }),
+      );
     }
 
     return this.deleteUserService(id);

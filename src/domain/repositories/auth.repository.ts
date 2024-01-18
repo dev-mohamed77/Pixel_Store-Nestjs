@@ -1,4 +1,4 @@
-import { UserEntity } from '../entities/users';
+import { UserEntity } from '../entities/users.entity';
 
 export abstract class IAuthRepository {
   abstract createUser(user: UserEntity): Promise<UserEntity>;

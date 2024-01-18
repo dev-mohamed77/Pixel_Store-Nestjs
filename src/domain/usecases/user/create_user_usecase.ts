@@ -1,6 +1,6 @@
 import { IUserRepository } from 'src/domain/repositories/user.repository';
 import { IBaseUseCase } from '../../../application/core/base/base_usecase';
-import { UserEntity } from 'src/domain/entities/users';
+import { UserEntity } from 'src/domain/entities/users.entity';
 
 export class CreateUserUseCase implements IBaseUseCase<UserEntity> {
   constructor(private repo: IUserRepository) {}
